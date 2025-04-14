@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "subtitle": "SPLETNI RAZVOJ"
+  },
+  "projects": {
+    "title": "Projekti"
+  },
+  "about": {
+    "title": "O Meni",
+    "content": "Sem spletni razvijalec s strastjo do ustvarjanja čistih, učinkovitih in uporabniku prijaznih spletnih strani. Z večletnimi izkušnjami v industriji se specializiram za gradnjo sodobnih spletnih aplikacij z uporabo najnovejših tehnologij in najboljših praks."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "message": "Vas zanima sodelovanje? Pošljite mi e-pošto!",
+    "email": "info@pavsic.net",
+    "buttonText": "Pošlji E-pošto"
+  }
+}

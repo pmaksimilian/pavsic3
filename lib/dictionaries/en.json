@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "subtitle": "WEB DEVELOPMENT"
+  },
+  "projects": {
+    "title": "Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "content": "I am a web developer with a passion for creating clean, efficient, and user-friendly websites. With years of experience in the industry, I specialize in building modern web applications using the latest technologies and best practices."
+  },
+  "contact": {
+    "title": "Contact",
+    "message": "Interested in working together? Send me an email!",
+    "email": "info@pavsic.net",
+    "buttonText": "Email Me"
+  }
+}
