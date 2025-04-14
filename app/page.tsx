@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import AsciiArt from '../components/about_image';
 
 export default function Home() {
   const router = useRouter()
@@ -150,20 +151,22 @@ export default function Home() {
         <section id="about" className="content-section">
           <div className="section-content">
             <div className="section-header">
-              <div className="terminal-line">C:\Users\Guest&gt; cd about</div>
-              <div className="terminal-line">C:\Users\Guest\about&gt; type README.txt</div>
+            <div className="terminal-line">C:\Users\Guest&gt; cd about</div>
+            <div className="terminal-line">C:\Users\Guest\about&gt; type README.txt</div>
             </div>
             <h2 className="section-title">{language === "sl" ? "O Meni" : "About Me"}</h2>
             <div className="terminal-line">--------------------------------------------------</div>
             <div className="terminal-text">
-              {language === "sl"
+            {language === "sl"
                 ? "Sem spletni razvijalec s strastjo do ustvarjanja čistih, učinkovitih in uporabniku prijaznih spletnih strani. Z večletnimi izkušnjami v industriji se specializiram za gradnjo sodobnih spletnih aplikacij z uporabo najnovejših tehnologij in najboljših praks."
                 : "I am a web developer with a passion for creating clean, efficient, and user-friendly websites. With years of experience in the industry, I specialize in building modern web applications using the latest technologies and best practices."}
+                <AsciiArt />
             </div>
             <div className="terminal-line">--------------------------------------------------</div>
             <div className="terminal-line">
-              C:\Users\Guest\about&gt; <span className="cursor"></span>
+            C:\Users\Guest\about&gt; <span className="cursor"></span>
             </div>
+            
           </div>
         </section>
 
