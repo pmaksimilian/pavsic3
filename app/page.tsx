@@ -5,126 +5,128 @@ import { useRouter } from 'next/navigation'
 import AsciiArt from '../components/about_image'
 
 export default function Home () {
-  const router = useRouter()
-  const [title, setTitle] = useState('')
-  const [subtitle, setSubtitle] = useState('')
-  const [titleDone, setTitleDone] = useState(false)
-  const [subtitleDone, setSubtitleDone] = useState(false)
-  const [showPrompt, setShowPrompt] = useState(false)
-  const [language, setLanguage] = useState('sl') // Default to Slovenian
+  const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [titleDone, setTitleDone] = useState(false);
+  const [subtitleDone, setSubtitleDone] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [language, setLanguage] = useState("sl"); // Default to Slovenian
+  const commandPath = "C:\\User\\Guest"; // Default path
 
   // Add refs for sections to enable automatic scrolling
-  const terminalWindowRef = useRef<HTMLDivElement>(null)
-  const heroSectionRef = useRef<HTMLElement>(null)
-  const projectsSectionRef = useRef<HTMLElement>(null)
-  const aboutSectionRef = useRef<HTMLElement>(null)
-  const contactSectionRef = useRef<HTMLElement>(null)
+  const terminalWindowRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const projectsSectionRef = useRef<HTMLElement>(null);
+  const aboutSectionRef = useRef<HTMLElement>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
+
 
   // Typewriter effect for title
   useEffect(() => {
-    const fullTitle = 'PAVSIC.NET'
-    let i = 0
+    const fullTitle = "PAVSIC.NET";
+    let i = 0;
     const interval = setInterval(() => {
-      setTitle(fullTitle.substring(0, i + 1))
-      i++
+      setTitle(fullTitle.substring(0, i + 1));
+      i++;
       if (i === fullTitle.length) {
-        clearInterval(interval)
-        setTitleDone(true)
+        clearInterval(interval);
+        setTitleDone(true);
       }
-    }, 150)
-    return () => clearInterval(interval)
-  }, [])
+    }, 150);
+    return () => clearInterval(interval);
+  }, []);
 
   // Typewriter effect for subtitle after title is done
   useEffect(() => {
-    if (!titleDone) return
+    if (!titleDone) return;
 
     const fullSubtitle =
-      language === 'sl' ? 'SPLETNI RAZVOJ' : 'WEB DEVELOPMENT'
-    let i = 0
+      language === "sl" ? "SPLETNI RAZVOJ" : "WEB DEVELOPMENT";
+    let i = 0;
     const interval = setInterval(() => {
-      setSubtitle(fullSubtitle.substring(0, i + 1))
-      i++
+      setSubtitle(fullSubtitle.substring(0, i + 1));
+      i++;
       if (i === fullSubtitle.length) {
-        clearInterval(interval)
-        setSubtitleDone(true)
+        clearInterval(interval);
+        setSubtitleDone(true);
       }
-    }, 100)
-    return () => clearInterval(interval)
-  }, [titleDone, language])
+    }, 100);
+    return () => clearInterval(interval);
+  }, [titleDone, language]);
 
   // Show command prompt after both animations are done
   useEffect(() => {
     if (titleDone && subtitleDone) {
       setTimeout(() => {
-        setShowPrompt(true)
-      }, 500)
+        setShowPrompt(true);
+      }, 500);
     }
-  }, [titleDone, subtitleDone])
+  }, [titleDone, subtitleDone]);
 
   // Implement automatic scrolling between sections
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       // Prevent default scrolling
-      e.preventDefault()
+      e.preventDefault();
 
-      if (!terminalWindowRef.current) return
+      if (!terminalWindowRef.current) return;
 
       // Get all section refs
       const sections = [
         heroSectionRef.current,
         projectsSectionRef.current,
         aboutSectionRef.current,
-        contactSectionRef.current
-      ]
+        contactSectionRef.current,
+      ];
 
       // Filter out any null refs
-      const validSections = sections.filter(Boolean) as HTMLElement[]
+      const validSections = sections.filter(Boolean) as HTMLElement[];
 
       // Find the currently visible section
-      const currentSectionIndex = validSections.findIndex(section => {
-        const rect = section.getBoundingClientRect()
+      const currentSectionIndex = validSections.findIndex((section) => {
+        const rect = section.getBoundingClientRect();
         // Consider a section "visible" if its top is near the viewport top
-        return rect.top <= 100 && rect.bottom >= 100
-      })
+        return rect.top <= 100 && rect.bottom >= 100;
+      });
 
-      if (currentSectionIndex === -1) return
+      if (currentSectionIndex === -1) return;
 
       // Determine scroll direction
       if (e.deltaY > 0 && currentSectionIndex < validSections.length - 1) {
         // Scroll down to next section
         validSections[currentSectionIndex + 1].scrollIntoView({
-          behavior: 'smooth'
-        })
+          behavior: "smooth",
+        });
       } else if (e.deltaY < 0 && currentSectionIndex > 0) {
         // Scroll up to previous section
         validSections[currentSectionIndex - 1].scrollIntoView({
-          behavior: 'smooth'
-        })
+          behavior: "smooth",
+        });
       }
-    }
+    };
 
     // Add wheel event listener to terminal window
-    const terminalWindow = terminalWindowRef.current
+    const terminalWindow = terminalWindowRef.current;
     if (terminalWindow) {
-      terminalWindow.addEventListener('wheel', handleWheel, { passive: false })
+      terminalWindow.addEventListener("wheel", handleWheel, { passive: false });
     }
 
     // Clean up event listener on unmount
     return () => {
       if (terminalWindow) {
-        terminalWindow.removeEventListener('wheel', handleWheel)
+        terminalWindow.removeEventListener("wheel", handleWheel);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   // Toggle language
   const toggleLanguage = () => {
-    const newLang = language === 'sl' ? 'en' : 'sl'
-    setLanguage(newLang)
-    setSubtitle('')
-    setSubtitleDone(false)
-  }
+    const newLang = language === "sl" ? "en" : "sl";
+    setLanguage(newLang);
+    setSubtitle("");
+    setSubtitleDone(false);
+  };
 
   return (
     <div className="terminal-screen">
@@ -150,7 +152,7 @@ export default function Home () {
         >
           <div className="section-content">
             <div className="terminal-line">
-              C:\Users\Guest&gt; start pavsic.net
+              {commandPath}&gt; start pavsic.net
             </div>
             <div className="terminal-line">Loading...</div>
             <div className="terminal-line">
@@ -179,7 +181,7 @@ export default function Home () {
               {showPrompt && (
                 <div className="command-prompt">
                   <div className="terminal-line">
-                    C:\Users\Guest&gt; explore
+                    {commandPath}&gt; explore
                   </div>
                   <div className="terminal-line">
                     Available commands:
@@ -214,7 +216,7 @@ export default function Home () {
                     </ul>
                   </div>
                   <div className="terminal-line">
-                    C:\Users\Guest&gt; <span className="cursor"></span>
+                    {commandPath}&gt; <span className="cursor"></span>
                   </div>
                 </div>
               )}
@@ -230,17 +232,17 @@ export default function Home () {
           <div className="section-content">
             <div className="section-header">
               <div className="terminal-line">
-                C:\Users\Guest&gt; cd projects
+                {commandPath}&gt; cd projects
               </div>
               <div className="terminal-line">
-                C:\Users\Guest\projects&gt; dir
+                {commandPath}\projects&gt; dir
               </div>
             </div>
             <h2 className="section-title">
               {language === "sl" ? "Projekti" : "Projects"}
             </h2>
             <div className="terminal-line">
-              Directory of C:\Users\Guest\projects
+              Directory of {commandPath}\projects
             </div>
             <div className="terminal-line">
               --------------------------------------------------
@@ -259,7 +261,7 @@ export default function Home () {
             </div>
             <div className="terminal-line">3 File(s) 33,792 bytes</div>
             <div className="terminal-line">
-              C:\Users\Guest\projects&gt; <span className="cursor"></span>
+              {commandPath}\projects&gt; <span className="cursor"></span>
             </div>
           </div>
         </section>
@@ -274,10 +276,10 @@ export default function Home () {
               <div>
                 <div className="section-header">
                   <div className="terminal-line">
-                    C:\Users\Guest&gt; cd about
+                    {commandPath}&gt; cd about
                   </div>
                   <div className="terminal-line">
-                    C:\Users\Guest\about&gt; type README.txt
+                    {commandPath}\about&gt; type README.txt
                   </div>
                 </div>
                 <h2 className="section-title">
@@ -300,23 +302,23 @@ export default function Home () {
                       --------------------------------------------------
                     </div>
                     <div className="terminal-line">
-                      C:\Users\Guest\about&gt; <span className="cursor"></span>
+                      {commandPath}\about&gt; <span className="cursor"></span>
                     </div>
                   </div>
                 </div>
               </div>
-                {/* Right column: ASCII art container */}
-                <div className="ascii-art-container">
-                  {/* <div className="terminal-line">
-                  C:\Users\Guest\about&gt; cat avatar.txt
+              {/* Right column: ASCII art container */}
+              <div className="ascii-art-container">
+                {/* <div className="terminal-line">
+                  {commandPath}\about&gt; cat avatar.txt
                 </div> */}
-                  <pre className="ascii-art">
-                    <AsciiArt />
-                  </pre>
-                  {/* <div className="terminal-line">
-                  C:\Users\Guest\about&gt; <span className="cursor"></span>
+                <pre className="ascii-art">
+                  <AsciiArt />
+                </pre>
+                {/* <div className="terminal-line">
+                  {commandPath}\about&gt; <span className="cursor"></span>
                 </div> */}
-                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -328,9 +330,9 @@ export default function Home () {
         >
           <div className="section-content">
             <div className="section-header">
-              <div className="terminal-line">C:\Users\Guest&gt; cd contact</div>
+              <div className="terminal-line">{commandPath}&gt; cd contact</div>
               <div className="terminal-line">
-                C:\Users\Guest\contact&gt; type CONTACT.txt
+                {commandPath}\contact&gt; type CONTACT.txt
               </div>
             </div>
             <h2 className="section-title">
@@ -357,7 +359,7 @@ export default function Home () {
               --------------------------------------------------
             </div>
             <div className="terminal-line">
-              C:\Users\Guest\contact&gt; <span className="cursor"></span>
+              {commandPath}\contact&gt; <span className="cursor"></span>
             </div>
           </div>
         </section>
