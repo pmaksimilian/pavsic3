@@ -3,9 +3,8 @@ import "./globals.css"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "PAVSIC.NET - Terminal Style Web Development",
-  description: "Web development services with a retro terminal aesthetic",
-    generator: 'v0.dev'
+  title: "PAVSIC.NET - Web Development",
+  description: "Web development services",
 }
 
 export default function RootLayout({

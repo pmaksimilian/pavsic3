@@ -130,7 +130,7 @@ export default function Home () {
 
   return (
     <div className="terminal-screen">
-      <div className="terminal-header">
+      {/* <div className="terminal-header">
         <div className="terminal-title">PAVSIC.NET - Terminal</div>
         <div className="terminal-controls">
           <button
@@ -140,7 +140,7 @@ export default function Home () {
             {language === "sl" ? "EN" : "SL"}
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="terminal-window"
