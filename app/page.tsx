@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import AsciiArt from '../components/about_image';
 
@@ -12,6 +12,13 @@ export default function Home() {
   const [subtitleDone, setSubtitleDone] = useState(false)
   const [showPrompt, setShowPrompt] = useState(false)
   const [language, setLanguage] = useState("sl") // Default to Slovenian
+
+  // Add refs for sections to enable automatic scrolling
+  const terminalWindowRef = useRef<HTMLDivElement>(null)
+  const heroSectionRef = useRef<HTMLElement>(null)
+  const projectsSectionRef = useRef<HTMLElement>(null)
+  const aboutSectionRef = useRef<HTMLElement>(null)
+  const contactSectionRef = useRef<HTMLElement>(null)
 
   // Typewriter effect for title
   useEffect(() => {
@@ -54,6 +61,58 @@ export default function Home() {
     }
   }, [titleDone, subtitleDone])
 
+  // Implement automatic scrolling between sections
+useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Prevent default scrolling
+      e.preventDefault()
+      
+      if (!terminalWindowRef.current) return
+      
+      // Get all section refs
+      const sections = [
+        heroSectionRef.current,
+        projectsSectionRef.current,
+        aboutSectionRef.current,
+        contactSectionRef.current
+      ]
+      
+      // Filter out any null refs
+      const validSections = sections.filter(Boolean) as HTMLElement[]
+      
+      // Find the currently visible section
+      const currentSectionIndex = validSections.findIndex(section => {
+        const rect = section.getBoundingClientRect()
+        // Consider a section "visible" if its top is near the viewport top
+        return rect.top <= 100 && rect.bottom >= 100
+      })
+      
+      if (currentSectionIndex === -1) return
+      
+      // Determine scroll direction
+      if (e.deltaY > 0 && currentSectionIndex < validSections.length - 1) {
+        // Scroll down to next section
+        validSections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' })
+      } else if (e.deltaY < 0 && currentSectionIndex > 0) {
+        // Scroll up to previous section
+        validSections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+    
+    // Add wheel event listener to terminal window
+    const terminalWindow = terminalWindowRef.current
+    if (terminalWindow) {
+      terminalWindow.addEventListener('wheel', handleWheel, { passive: false })
+    }
+    
+    // Clean up event listener on unmount
+    return () => {
+      if (terminalWindow) {
+        terminalWindow.removeEventListener('wheel', handleWheel)
+      }
+    }
+  }, [])
+
   // Toggle language
   const toggleLanguage = () => {
     const newLang = language === "sl" ? "en" : "sl"
@@ -73,8 +132,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="terminal-window">
-        <section className="hero-section">
+      <div className="terminal-window" ref={terminalWindowRef}>
+        <section className="hero-section" ref={heroSectionRef}>
           <div className="section-content">
             <div className="terminal-line">C:\Users\Guest&gt; start pavsic.net</div>
             <div className="terminal-line">Loading...</div>
@@ -128,7 +187,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="projects" className="content-section">
+        <section id="projects" className="content-section" ref={projectsSectionRef}>
           <div className="section-content">
             <div className="section-header">
               <div className="terminal-line">C:\Users\Guest&gt; cd projects</div>
@@ -148,7 +207,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="content-section">
+        <section id="about" className="content-section" ref={aboutSectionRef}>
           <div className="section-content">
             <div className="section-header">
             <div className="terminal-line">C:\Users\Guest&gt; cd about</div>
@@ -170,7 +229,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="content-section">
+        <section id="contact" className="content-section" ref={contactSectionRef}>
           <div className="section-content">
             <div className="section-header">
               <div className="terminal-line">C:\Users\Guest&gt; cd contact</div>
