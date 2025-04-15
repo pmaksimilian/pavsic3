@@ -184,6 +184,34 @@ a {
   width: 100%;
 }
 
+/* About section two-column layout */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.about-text {
+  width: 100%;
+}
+
+/* ASCII art container styles */
+.ascii-art-container {
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.ascii-art {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: pre;
+  overflow: auto;
+  color: var(--terminal-text);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .terminal-title-text {
@@ -196,6 +224,17 @@ a {
 
   .section-title {
     font-size: 2rem;
+  }
+
+  /* Stack columns on mobile */
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Adjust ASCII art size on mobile */
+  .ascii-art {
+    font-size: 12px;
   }
 }
 

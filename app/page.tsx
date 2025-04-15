@@ -127,76 +127,94 @@ export default function Home () {
   }
 
   return (
-    <div className='terminal-screen'>
-      <div className='terminal-header'>
-        <div className='terminal-title'>PAVSIC.NET - Terminal</div>
-        <div className='terminal-controls'>
-          <button onClick={toggleLanguage} className='language-btn'>
-            {language === 'sl' ? 'EN' : 'SL'}
+    <div className="terminal-screen">
+      <div className="terminal-header">
+        <div className="terminal-title">PAVSIC.NET - Terminal</div>
+        <div className="terminal-controls">
+          <button
+            onClick={toggleLanguage}
+            className="language-btn"
+          >
+            {language === "sl" ? "EN" : "SL"}
           </button>
         </div>
       </div>
 
-      <div className='terminal-window' ref={terminalWindowRef}>
-        <section className='hero-section' ref={heroSectionRef}>
-          <div className='section-content'>
-            <div className='terminal-line'>
+      <div
+        className="terminal-window"
+        ref={terminalWindowRef}
+      >
+        <section
+          className="hero-section"
+          ref={heroSectionRef}
+        >
+          <div className="section-content">
+            <div className="terminal-line">
               C:\Users\Guest&gt; start pavsic.net
             </div>
-            <div className='terminal-line'>Loading...</div>
-            <div className='terminal-line'>
+            <div className="terminal-line">Loading...</div>
+            <div className="terminal-line">
               Welcome to PAVSIC.NET Terminal v1.0.0
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               Copyright (c) 2025 PAVSIC.NET. All rights reserved.
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               --------------------------------------------------
             </div>
-            <div className='terminal-line'></div>
+            <div className="terminal-line"></div>
 
-            <div className='terminal-output'>
-              <h1 className='terminal-title-text'>
+            <div className="terminal-output">
+              <h1 className="terminal-title-text">
                 {title}
-                <span className={titleDone ? 'hidden' : 'cursor'}></span>
+                <span className={titleDone ? "hidden" : "cursor"}></span>
               </h1>
-              <h2 className='terminal-subtitle-text'>
+              <h2 className="terminal-subtitle-text">
                 {subtitle}
                 <span
-                  className={!titleDone || subtitleDone ? 'hidden' : 'cursor'}
+                  className={!titleDone || subtitleDone ? "hidden" : "cursor"}
                 ></span>
               </h2>
 
               {showPrompt && (
-                <div className='command-prompt'>
-                  <div className='terminal-line'>
+                <div className="command-prompt">
+                  <div className="terminal-line">
                     C:\Users\Guest&gt; explore
                   </div>
-                  <div className='terminal-line'>
+                  <div className="terminal-line">
                     Available commands:
-                    <ul className='command-list'>
+                    <ul className="command-list">
                       <li>
-                        <a href='#projects' className='command-link'>
+                        <a
+                          href="#projects"
+                          className="command-link"
+                        >
                           projects
-                        </a>{' '}
+                        </a>{" "}
                         - View my projects
                       </li>
                       <li>
-                        <a href='#about' className='command-link'>
+                        <a
+                          href="#about"
+                          className="command-link"
+                        >
                           about
-                        </a>{' '}
+                        </a>{" "}
                         - About me
                       </li>
                       <li>
-                        <a href='#contact' className='command-link'>
+                        <a
+                          href="#contact"
+                          className="command-link"
+                        >
                           contact
-                        </a>{' '}
+                        </a>{" "}
                         - Contact information
                       </li>
                     </ul>
                   </div>
-                  <div className='terminal-line'>
-                    C:\Users\Guest&gt; <span className='cursor'></span>
+                  <div className="terminal-line">
+                    C:\Users\Guest&gt; <span className="cursor"></span>
                   </div>
                 </div>
               )}
@@ -205,114 +223,145 @@ export default function Home () {
         </section>
 
         <section
-          id='projects'
-          className='content-section'
+          id="projects"
+          className="content-section"
           ref={projectsSectionRef}
         >
-          <div className='section-content'>
-            <div className='section-header'>
-              <div className='terminal-line'>
+          <div className="section-content">
+            <div className="section-header">
+              <div className="terminal-line">
                 C:\Users\Guest&gt; cd projects
               </div>
-              <div className='terminal-line'>
+              <div className="terminal-line">
                 C:\Users\Guest\projects&gt; dir
               </div>
             </div>
-            <h2 className='section-title'>
-              {language === 'sl' ? 'Projekti' : 'Projects'}
+            <h2 className="section-title">
+              {language === "sl" ? "Projekti" : "Projects"}
             </h2>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               Directory of C:\Users\Guest\projects
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               --------------------------------------------------
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               PROJECT_1.exe &lt;DIR&gt; 10,240 bytes 04/14/2025 10:30 AM
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               PROJECT_2.exe &lt;DIR&gt; 15,360 bytes 03/22/2025 02:15 PM
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               PROJECT_3.exe &lt;DIR&gt; 8,192 bytes 02/10/2025 09:45 AM
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               --------------------------------------------------
             </div>
-            <div className='terminal-line'>3 File(s) 33,792 bytes</div>
-            <div className='terminal-line'>
-              C:\Users\Guest\projects&gt; <span className='cursor'></span>
-            </div>
-          </div>
-        </section>
-
-        <section id='about' className='content-section' ref={aboutSectionRef}>
-          <div className='section-content'>
-            <div className='section-header'>
-              <div className='terminal-line'>C:\Users\Guest&gt; cd about</div>
-              <div className='terminal-line'>
-                C:\Users\Guest\about&gt; type README.txt
-              </div>
-            </div>
-            <h2 className='section-title'>
-              {language === 'sl' ? 'O Meni' : 'About Me'}
-            </h2>
-            <div className='terminal-line'>
-              --------------------------------------------------
-            </div>
-            <div className='terminal-text'>
-              {language === 'sl'
-                ? 'Sem spletni razvijalec s strastjo do ustvarjanja čistih, učinkovitih in uporabniku prijaznih spletnih strani. Z večletnimi izkušnjami v industriji se specializiram za gradnjo sodobnih spletnih aplikacij z uporabo najnovejših tehnologij in najboljših praks.'
-                : 'I am a web developer with a passion for creating clean, efficient, and user-friendly websites. With years of experience in the industry, I specialize in building modern web applications using the latest technologies and best practices.'}
-              <AsciiArt />
-            </div>
-            <div className='terminal-line'>
-              --------------------------------------------------
-            </div>
-            <div className='terminal-line'>
-              C:\Users\Guest\about&gt; <span className='cursor'></span>
+            <div className="terminal-line">3 File(s) 33,792 bytes</div>
+            <div className="terminal-line">
+              C:\Users\Guest\projects&gt; <span className="cursor"></span>
             </div>
           </div>
         </section>
 
         <section
-          id='contact'
-          className='content-section'
+          id="about"
+          className="content-section"
+          ref={aboutSectionRef}
+        >
+          <div className="section-content">
+            <div className="about-container">
+              <div>
+                <div className="section-header">
+                  <div className="terminal-line">
+                    C:\Users\Guest&gt; cd about
+                  </div>
+                  <div className="terminal-line">
+                    C:\Users\Guest\about&gt; type README.txt
+                  </div>
+                </div>
+                <h2 className="section-title">
+                  {language === "sl" ? "O Meni" : "About Me"}
+                </h2>
+
+                {/* Two-column layout for About section */}
+                <div className="about-container">
+                  {/* Left column: About text */}
+                  <div className="about-text">
+                    <div className="terminal-line">
+                      --------------------------------------------------
+                    </div>
+                    <div className="terminal-text">
+                      {language === "sl"
+                        ? "Sem spletni razvijalec s strastjo do ustvarjanja čistih, učinkovitih in uporabniku prijaznih spletnih strani. Z večletnimi izkušnjami v industriji se specializiram za gradnjo sodobnih spletnih aplikacij z uporabo najnovejših tehnologij in najboljših praks."
+                        : "I am a web developer with a passion for creating clean, efficient, and user-friendly websites. With years of experience in the industry, I specialize in building modern web applications using the latest technologies and best practices."}
+                    </div>
+                    <div className="terminal-line">
+                      --------------------------------------------------
+                    </div>
+                    <div className="terminal-line">
+                      C:\Users\Guest\about&gt; <span className="cursor"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                {/* Right column: ASCII art container */}
+                <div className="ascii-art-container">
+                  {/* <div className="terminal-line">
+                  C:\Users\Guest\about&gt; cat avatar.txt
+                </div> */}
+                  <pre className="ascii-art">
+                    <AsciiArt />
+                  </pre>
+                  {/* <div className="terminal-line">
+                  C:\Users\Guest\about&gt; <span className="cursor"></span>
+                </div> */}
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          className="content-section"
           ref={contactSectionRef}
         >
-          <div className='section-content'>
-            <div className='section-header'>
-              <div className='terminal-line'>C:\Users\Guest&gt; cd contact</div>
-              <div className='terminal-line'>
+          <div className="section-content">
+            <div className="section-header">
+              <div className="terminal-line">C:\Users\Guest&gt; cd contact</div>
+              <div className="terminal-line">
                 C:\Users\Guest\contact&gt; type CONTACT.txt
               </div>
             </div>
-            <h2 className='section-title'>
-              {language === 'sl' ? 'Kontakt' : 'Contact'}
+            <h2 className="section-title">
+              {language === "sl" ? "Kontakt" : "Contact"}
             </h2>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               --------------------------------------------------
             </div>
-            <div className='terminal-text'>
-              {language === 'sl'
-                ? 'Vas zanima sodelovanje? Pošljite mi e-pošto!'
-                : 'Interested in working together? Send me an email!'}
+            <div className="terminal-text">
+              {language === "sl"
+                ? "Vas zanima sodelovanje? Pošljite mi e-pošto!"
+                : "Interested in working together? Send me an email!"}
             </div>
-            <div className='terminal-line'>
-              EMAIL:{' '}
-              <a href='mailto:info@pavsic.net' className='command-link'>
+            <div className="terminal-line">
+              EMAIL:{" "}
+              <a
+                href="mailto:info@pavsic.net"
+                className="command-link"
+              >
                 info@pavsic.net
               </a>
             </div>
-            <div className='terminal-line'>
+            <div className="terminal-line">
               --------------------------------------------------
             </div>
-            <div className='terminal-line'>
-              C:\Users\Guest\contact&gt; <span className='cursor'></span>
+            <div className="terminal-line">
+              C:\Users\Guest\contact&gt; <span className="cursor"></span>
             </div>
           </div>
         </section>
       </div>
     </div>
-  )
+  );
 }
