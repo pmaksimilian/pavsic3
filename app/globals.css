@@ -97,6 +97,8 @@ a {
 .terminal-line {
   margin-bottom: 8px;
   white-space: pre-wrap;
+  max-width: 97%;
+  overflow: hidden;
 }
 
 .terminal-output {
@@ -154,7 +156,7 @@ a {
 .content-section {
   height: 100vh;
   width: 100%;
-  padding: 80px 16px 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,16 +206,23 @@ a {
 }
 
 .ascii-art {
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
   line-height: 1.2;
   white-space: pre;
   overflow: auto;
   color: var(--terminal-text);
+  font-family: "monospace";
+  padding: 20px;
+  font-size: 8px;
+  transform: scale(1, 0.8);
 }
 
+.about-content-container {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .terminal-title-text {
     font-size: 2.5rem;
   }
@@ -229,12 +238,13 @@ a {
   /* Stack columns on mobile */
   .about-container {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 2px;
   }
 
   /* Adjust ASCII art size on mobile */
   .ascii-art {
-    font-size: 12px;
+    font-size: 6px;
+    padding: 2px; 
   }
 }
 
@@ -249,5 +259,16 @@ a {
 
   .section-title {
     font-size: 1.5rem;
+  }
+
+  .ascii-art-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ascii-art {
+    font-size: 4.5px;
+    padding: 2px; 
   }
 }

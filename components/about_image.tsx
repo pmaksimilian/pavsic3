@@ -1,8 +1,8 @@
 // AsciiArt.tsx
 const AsciiArt = () => {
     return (
-      <pre style={{ whiteSpace: "pre", fontFamily: "monospace", padding: "20px", overflowX: "auto", fontSize: "8px", transform: "scale(1, 0.8)"}}>
-  {String.raw`                                                                       
+      <pre className="ascii-art">
+        {String.raw`                                                                       
                                                :#@  @########@                                        
                                                 #####*++++:*-###                                      
                                                 .###+==+*+*++++##                                     

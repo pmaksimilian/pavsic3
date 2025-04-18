@@ -37,7 +37,7 @@ export default function AboutSection({
     >
       <div className="section-content">
         <div className="about-container">
-          <div>
+          <div className="about-content-container">
             <div className="section-header">
               <div className="terminal-line">{commandPath}&gt; cd about</div>
               <div className="terminal-line">
@@ -62,9 +62,7 @@ export default function AboutSection({
 
           {/* ASCII art container */}
           <div className="ascii-art-container">
-            <pre className="ascii-art">
-              <AsciiArt />
-            </pre>
+            <AsciiArt />
           </div>
         </div>
       </div>
