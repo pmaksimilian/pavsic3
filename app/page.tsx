@@ -31,7 +31,10 @@ export default function Home () {
   ];
 
   // Set up section navigation with wheel events
-  useSectionNavigation(terminalWindowRef, sectionRefs);
+  const { scrollToSection, currentSection } = useSectionNavigation(
+    terminalWindowRef,
+    sectionRefs
+  );
 
   // Toggle language
   const toggleLanguage = () => {
@@ -59,6 +62,7 @@ export default function Home () {
       >
         <div ref={heroSectionRef as React.RefObject<HTMLDivElement>}>
           <Hero
+            onCommand={scrollToSection}
             language={language}
             commandPath={commandPath}
             isInternationalized={false}
@@ -89,6 +93,13 @@ export default function Home () {
           />
         </div>
       </div>
+      <button
+        onClick={() => scrollToSection("home")}
+        className={`back-to-top ${currentSection != "home" ? "visible" : ""}`}
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
     </div>
   );
 }

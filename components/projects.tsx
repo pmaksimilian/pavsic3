@@ -136,7 +136,7 @@ export default function ProjectsSection({
             {selectedProject === project.id && (
               <div className="project-details">
                 <div className="terminal-line">
-                  {commandPath}\\projects&gt; info {project.id}.EXE
+                  {commandPath}\projects&gt; info {project.id}.EXE
                 </div>
                 <div className="terminal-line">
                   {language === "sl"
@@ -169,7 +169,7 @@ export default function ProjectsSection({
                   </div>
                 </div>
                 <div className="terminal-line">
-                  {commandPath}\\projects&gt; <span className="cursor"></span>
+                  {commandPath}\projects&gt; <span className="cursor"></span>
                 </div>
               </div>
             )}

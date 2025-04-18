@@ -9,6 +9,7 @@ interface HeroSectionProps {
   language?: string;
   commandPath?: string;
   isInternationalized?: boolean;
+  onCommand: (sectionId: string) => void;
 }
 
 export default function HeroSection({
@@ -16,6 +17,7 @@ export default function HeroSection({
   language = "sl",
   commandPath = "C:\\User\\Guest",
   isInternationalized = false,
+  onCommand
 }: HeroSectionProps) {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -71,7 +73,10 @@ export default function HeroSection({
   }, [titleDone, subtitleDone]);
 
   return (
-    <section className="hero-section">
+    <section
+      className="hero-section"
+      id="hero"
+    >
       <div className="section-content">
         <div className="terminal-line">{commandPath}&gt; start pavsic.net</div>
         <div className="terminal-line">Loading...</div>
@@ -105,30 +110,30 @@ export default function HeroSection({
                 Available commands:
                 <ul className="command-list">
                   <li>
-                    <a
-                      href="#projects"
+                    <button
                       className="command-link"
+                      onClick={() => onCommand("projects")}
                     >
                       projects
-                    </a>{" "}
+                    </button>{" "}
                     - View my projects
                   </li>
                   <li>
-                    <a
-                      href="#about"
+                    <button
                       className="command-link"
+                      onClick={() => onCommand("about")}
                     >
                       about
-                    </a>{" "}
+                    </button>{" "}
                     - About me
                   </li>
                   <li>
-                    <a
-                      href="#contact"
+                    <button
                       className="command-link"
+                      onClick={() => onCommand("contact")}
                     >
                       contact
-                    </a>{" "}
+                    </button>{" "}
                     - Contact information
                   </li>
                 </ul>
