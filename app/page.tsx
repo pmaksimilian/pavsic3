@@ -95,7 +95,7 @@ export default function Home () {
       </div>
       <button
         onClick={() => scrollToSection("home")}
-        className={`back-to-top ${currentSection != "home" ? "visible" : ""}`}
+        className={`back-to-top ${currentSection && currentSection != "home" ? "visible" : ""}`}
         aria-label="Back to top"
       >
         ↑
