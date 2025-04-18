@@ -163,6 +163,7 @@ a {
   border-top: 1px dashed var(--terminal-border);
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  overflow: auto;
 }
 
 .section-header {
@@ -217,9 +218,31 @@ a {
 }
 
 .about-content-container {
-    max-width: 100%;
-    overflow: hidden;
-  }
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.project-line {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.project-line:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.project-details {
+  margin-left: 20px;
+  padding: 10px;
+  border-left: 1px dashed var(--terminal-text);
+  margin-bottom: 15px;
+}
+
+.project-info {
+  margin-left: 10px;
+  padding: 10px 0;
+}
 
 /* Responsive adjustments */
 @media (max-width: 868px) {

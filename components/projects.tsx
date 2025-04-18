@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 interface ProjectsSectionProps {
   dict?: {
     title: string;
@@ -7,6 +9,15 @@ interface ProjectsSectionProps {
   language?: string;
   commandPath?: string;
   isInternationalized?: boolean;
+}
+
+interface Project {
+  id: string;
+  title: string;
+  type: string;
+  stack: string[];
+  description: string;
+  url: string;
 }
 
 export default function ProjectsSection({
@@ -22,26 +33,53 @@ export default function ProjectsSection({
     ? "Projekti"
     : "Projects";
 
-  const projects = [
+  const projects: Project[] = [
     {
-      id: 1,
-      title: "Project 1",
-      image: "/placeholder.svg?height=200&width=300",
-      url: "#",
+      id: "LIME_N_LEMON",
+      title: "Agency Website",
+      type: "WEB",
+      stack: ["WordPress"],
+      description:
+        language === "sl"
+          ? "Spletna stran agencije za organizacijo dogodkov"
+          : "Website of an event planning agency",
+      url: "https://limenlemon.si",
     },
     {
-      id: 2,
-      title: "Project 2",
-      image: "/placeholder.svg?height=200&width=300",
-      url: "#",
+      id: "CELEIA_1902",
+      title: "Real Estate Website",
+      type: "WEB",
+      stack: ["WordPress"],
+      description:
+        language === "sl"
+          ? "Stran za prodajo nepremičnine s klikabilnim tlorisom"
+          : "Property listing page with an interactive floor plan",
+      url: "https://celeia1902.si",
     },
-    {
-      id: 3,
-      title: "Project 3",
-      image: "/placeholder.svg?height=200&width=300",
-      url: "#",
-    },
+    // {
+    //   id: "PROJECT_3",
+    //   title: "Admin Dashboard",
+    //   type: "APP",
+    //   stack: ["Vue", "Firebase", "Chart.js"],
+    //   description:
+    //     language === "sl"
+    //       ? "Nadzorna plošča za upravljanje podatkov"
+    //       : "Dashboard for data management",
+    //   url: "https://example.com/project3",
+    // },
   ];
+
+  // State to track which project is "selected" or being viewed
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+
+  // Function to toggle project selection
+  const toggleProjectSelection = (projectId: string) => {
+    if (selectedProject === projectId) {
+      setSelectedProject(null);
+    } else {
+      setSelectedProject(projectId);
+    }
+  };
 
   return (
     <section
@@ -54,21 +92,65 @@ export default function ProjectsSection({
           <div className="terminal-line">{commandPath}\projects&gt; dir</div>
         </div>
         <h2 className="section-title">{title}</h2>
-        <div className="terminal-line">
-          Directory of {commandPath}\projects
-        </div>
+        <div className="terminal-line">Directory of {commandPath}\projects</div>
         <div className="terminal-line">
           --------------------------------------------------
         </div>
-        <div className="terminal-line">
-          PROJECT_1.exe &lt;DIR&gt; 10,240 bytes 04/14/2025 10:30 AM
-        </div>
-        <div className="terminal-line">
-          PROJECT_2.exe &lt;DIR&gt; 15,360 bytes 03/22/2025 02:15 PM
-        </div>
-        <div className="terminal-line">
-          PROJECT_3.exe &lt;DIR&gt; 8,192 bytes 02/10/2025 09:45 AM
-        </div>
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="project-listing"
+          >
+            <div
+              className="terminal-line project-line"
+              onClick={() => toggleProjectSelection(project.id)}
+            >
+              {project.id}.EXE &lt;{project.type}&gt; [{project.stack.join(", ")}]
+            </div>
+
+            {/* Expanded project details when selected */}
+            {selectedProject === project.id && (
+              <div className="project-details">
+                <div className="terminal-line">
+                  {commandPath}\\projects&gt; info {project.id}.EXE
+                </div>
+                <div className="terminal-line">
+                  {language === "sl"
+                    ? "Prikazujem informacije za"
+                    : "Displaying information for"}{" "}
+                  {project.id}.EXE...
+                </div>
+                <div className="project-info">
+                  <div className="terminal-line">
+                    {language === "sl" ? "Naslov" : "Title"}: {project.title}
+                  </div>
+                  <div className="terminal-line">
+                    {language === "sl" ? "Tehnologije" : "Technologies"}:{" "}
+                    {project.stack.join(", ")}
+                  </div>
+                  <div className="terminal-line">
+                    {language === "sl" ? "Opis" : "Description"}:{" "}
+                    {project.description}
+                  </div>
+                  <div className="terminal-line">
+                    URL:{" "}
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="command-link"
+                    >
+                      {project.url}
+                    </a>
+                  </div>
+                </div>
+                <div className="terminal-line">
+                  {commandPath}\\projects&gt; <span className="cursor"></span>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
         <div className="terminal-line">
           --------------------------------------------------
         </div>
