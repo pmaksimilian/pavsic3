@@ -18,7 +18,22 @@ interface Project {
   stack: string[];
   description: string;
   url: string;
+  size: number;
+  date: string;
 }
+
+function formatSize(size: number): string {
+  return size.toLocaleString("en-US");
+}
+
+function getTodayDate(): string {
+  const today = new Date();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const yyyy = today.getFullYear();
+  return `${mm}/${dd}/${yyyy}`;
+}
+
 
 export default function ProjectsSection({
   dict,
@@ -44,6 +59,8 @@ export default function ProjectsSection({
           ? "Spletna stran agencije za organizacijo dogodkov"
           : "Website of an event planning agency",
       url: "https://limenlemon.si",
+      size: 15360,
+      date: getTodayDate(),
     },
     {
       id: "CELEIA_1902",
@@ -55,6 +72,8 @@ export default function ProjectsSection({
           ? "Stran za prodajo nepremičnine s klikabilnim tlorisom"
           : "Property listing page with an interactive floor plan",
       url: "https://celeia1902.si",
+      size: 8129,
+      date: getTodayDate(),
     },
     // {
     //   id: "PROJECT_3",
@@ -66,8 +85,12 @@ export default function ProjectsSection({
     //       ? "Nadzorna plošča za upravljanje podatkov"
     //       : "Dashboard for data management",
     //   url: "https://example.com/project3",
+    // size: "10,240",
+    //   date: "04/14/2023",
     // },
   ];
+  
+  const totalSize = projects.reduce((sum, p) => sum + p.size, 0);
 
   // State to track which project is "selected" or being viewed
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -105,7 +128,8 @@ export default function ProjectsSection({
               className="terminal-line project-line"
               onClick={() => toggleProjectSelection(project.id)}
             >
-              {project.id}.EXE &lt;{project.type}&gt; [{project.stack.join(", ")}]
+              {project.id}.EXE &lt;{project.type}&gt; {formatSize(project.size)}{" "}
+              bytes {project.date} [{project.stack.join(", ")}]
             </div>
 
             {/* Expanded project details when selected */}
@@ -154,7 +178,9 @@ export default function ProjectsSection({
         <div className="terminal-line">
           --------------------------------------------------
         </div>
-        <div className="terminal-line">3 File(s) 33,792 bytes</div>
+        <div className="terminal-line">
+          {projects.length} File(s) {formatSize(totalSize)} bytes
+        </div>
         <div className="terminal-line">
           {commandPath}\projects&gt; <span className="cursor"></span>
         </div>

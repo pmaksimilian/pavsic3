@@ -8,10 +8,9 @@ import Hero from "../components/hero";
 import Projects from "../components/projects";
 import About from "../components/about";
 import Contact from "../components/contact";
-import { useCommandPath } from "../hooks/use-command-path";
 import { useSectionNavigation } from "../hooks/use-section-navigation";
 
-
+const commandPath = "C:\\User\\Guest";
 export default function Home () {
   const router = useRouter();
   const [language, setLanguage] = useState("en"); // Default to Slovenian
@@ -31,14 +30,8 @@ export default function Home () {
     { ref: contactSectionRef, id: "contact" },
   ];
 
-  // Use custom hooks for command path and section navigation
-  const { commandPath, updateCommandPath } = useCommandPath(
-    terminalWindowRef,
-    sectionRefs
-  );
-
   // Set up section navigation with wheel events
-  useSectionNavigation(terminalWindowRef, sectionRefs, updateCommandPath);
+  useSectionNavigation(terminalWindowRef, sectionRefs);
 
   // Toggle language
   const toggleLanguage = () => {
