@@ -1,16 +1,17 @@
 'use client'
 
+import type React from "react";
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import AsciiArt from '../components/about_image'
+
+import Hero from "../components/hero";
+import Projects from "../components/projects";
+import About from "../components/about";
+import Contact from "../components/contact";
+
 
 export default function Home () {
   const router = useRouter();
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [titleDone, setTitleDone] = useState(false);
-  const [subtitleDone, setSubtitleDone] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
   const [language, setLanguage] = useState("sl"); // Default to Slovenian
   const commandPath = "C:\\User\\Guest"; // Default path
 
@@ -21,48 +22,6 @@ export default function Home () {
   const aboutSectionRef = useRef<HTMLElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
 
-
-  // Typewriter effect for title
-  useEffect(() => {
-    const fullTitle = "PAVSIC.NET";
-    let i = 0;
-    const interval = setInterval(() => {
-      setTitle(fullTitle.substring(0, i + 1));
-      i++;
-      if (i === fullTitle.length) {
-        clearInterval(interval);
-        setTitleDone(true);
-      }
-    }, 150);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Typewriter effect for subtitle after title is done
-  useEffect(() => {
-    if (!titleDone) return;
-
-    const fullSubtitle =
-      language === "sl" ? "SPLETNI RAZVOJ" : "WEB DEVELOPMENT";
-    let i = 0;
-    const interval = setInterval(() => {
-      setSubtitle(fullSubtitle.substring(0, i + 1));
-      i++;
-      if (i === fullSubtitle.length) {
-        clearInterval(interval);
-        setSubtitleDone(true);
-      }
-    }, 100);
-    return () => clearInterval(interval);
-  }, [titleDone, language]);
-
-  // Show command prompt after both animations are done
-  useEffect(() => {
-    if (titleDone && subtitleDone) {
-      setTimeout(() => {
-        setShowPrompt(true);
-      }, 500);
-    }
-  }, [titleDone, subtitleDone]);
 
   // Implement automatic scrolling between sections
   useEffect(() => {
@@ -124,8 +83,6 @@ export default function Home () {
   const toggleLanguage = () => {
     const newLang = language === "sl" ? "en" : "sl";
     setLanguage(newLang);
-    setSubtitle("");
-    setSubtitleDone(false);
   };
 
   return (
@@ -146,223 +103,37 @@ export default function Home () {
         className="terminal-window"
         ref={terminalWindowRef}
       >
-        <section
-          className="hero-section"
-          ref={heroSectionRef}
-        >
-          <div className="section-content">
-            <div className="terminal-line">
-              {commandPath}&gt; start pavsic.net
-            </div>
-            <div className="terminal-line">Loading...</div>
-            <div className="terminal-line">
-              Welcome to PAVSIC.NET Terminal v1.0.0
-            </div>
-            <div className="terminal-line">
-              Copyright (c) 2025 PAVSIC.NET. All rights reserved.
-            </div>
-            <div className="terminal-line">
-              --------------------------------------------------
-            </div>
-            <div className="terminal-line"></div>
+        <div ref={heroSectionRef as React.RefObject<HTMLDivElement>}>
+          <Hero
+            language={language}
+            commandPath={commandPath}
+            isInternationalized={false}
+          />
+        </div>
 
-            <div className="terminal-output">
-              <h1 className="terminal-title-text">
-                {title}
-                <span className={titleDone ? "hidden" : "cursor"}></span>
-              </h1>
-              <h2 className="terminal-subtitle-text">
-                {subtitle}
-                <span
-                  className={!titleDone || subtitleDone ? "hidden" : "cursor"}
-                ></span>
-              </h2>
+        <div ref={projectsSectionRef as React.RefObject<HTMLDivElement>}>
+          <Projects
+            language={language}
+            commandPath={commandPath}
+            isInternationalized={false}
+          />
+        </div>
 
-              {showPrompt && (
-                <div className="command-prompt">
-                  <div className="terminal-line">
-                    {commandPath}&gt; explore
-                  </div>
-                  <div className="terminal-line">
-                    Available commands:
-                    <ul className="command-list">
-                      <li>
-                        <a
-                          href="#projects"
-                          className="command-link"
-                        >
-                          projects
-                        </a>{" "}
-                        - View my projects
-                      </li>
-                      <li>
-                        <a
-                          href="#about"
-                          className="command-link"
-                        >
-                          about
-                        </a>{" "}
-                        - About me
-                      </li>
-                      <li>
-                        <a
-                          href="#contact"
-                          className="command-link"
-                        >
-                          contact
-                        </a>{" "}
-                        - Contact information
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="terminal-line">
-                    {commandPath}&gt; <span className="cursor"></span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+        <div ref={aboutSectionRef as React.RefObject<HTMLDivElement>}>
+          <About
+            language={language}
+            commandPath={commandPath}
+            isInternationalized={false}
+          />
+        </div>
 
-        <section
-          id="projects"
-          className="content-section"
-          ref={projectsSectionRef}
-        >
-          <div className="section-content">
-            <div className="section-header">
-              <div className="terminal-line">
-                {commandPath}&gt; cd projects
-              </div>
-              <div className="terminal-line">
-                {commandPath}\projects&gt; dir
-              </div>
-            </div>
-            <h2 className="section-title">
-              {language === "sl" ? "Projekti" : "Projects"}
-            </h2>
-            <div className="terminal-line">
-              Directory of {commandPath}\projects
-            </div>
-            <div className="terminal-line">
-              --------------------------------------------------
-            </div>
-            <div className="terminal-line">
-              PROJECT_1.exe &lt;DIR&gt; 10,240 bytes 04/14/2025 10:30 AM
-            </div>
-            <div className="terminal-line">
-              PROJECT_2.exe &lt;DIR&gt; 15,360 bytes 03/22/2025 02:15 PM
-            </div>
-            <div className="terminal-line">
-              PROJECT_3.exe &lt;DIR&gt; 8,192 bytes 02/10/2025 09:45 AM
-            </div>
-            <div className="terminal-line">
-              --------------------------------------------------
-            </div>
-            <div className="terminal-line">3 File(s) 33,792 bytes</div>
-            <div className="terminal-line">
-              {commandPath}\projects&gt; <span className="cursor"></span>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="about"
-          className="content-section"
-          ref={aboutSectionRef}
-        >
-          <div className="section-content">
-            <div className="about-container">
-              <div>
-                <div className="section-header">
-                  <div className="terminal-line">
-                    {commandPath}&gt; cd about
-                  </div>
-                  <div className="terminal-line">
-                    {commandPath}\about&gt; type README.txt
-                  </div>
-                </div>
-                <h2 className="section-title">
-                  {language === "sl" ? "O Meni" : "About Me"}
-                </h2>
-
-                {/* Two-column layout for About section */}
-                <div className="about-container">
-                  {/* Left column: About text */}
-                  <div className="about-text">
-                    <div className="terminal-line">
-                      --------------------------------------------------
-                    </div>
-                    <div className="terminal-text">
-                      {language === "sl"
-                        ? "Sem spletni razvijalec s strastjo do ustvarjanja čistih, učinkovitih in uporabniku prijaznih spletnih strani. Z večletnimi izkušnjami v industriji se specializiram za gradnjo sodobnih spletnih aplikacij z uporabo najnovejših tehnologij in najboljših praks."
-                        : "I am a web developer with a passion for creating clean, efficient, and user-friendly websites. With years of experience in the industry, I specialize in building modern web applications using the latest technologies and best practices."}
-                    </div>
-                    <div className="terminal-line">
-                      --------------------------------------------------
-                    </div>
-                    <div className="terminal-line">
-                      {commandPath}\about&gt; <span className="cursor"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Right column: ASCII art container */}
-              <div className="ascii-art-container">
-                {/* <div className="terminal-line">
-                  {commandPath}\about&gt; cat avatar.txt
-                </div> */}
-                <pre className="ascii-art">
-                  <AsciiArt />
-                </pre>
-                {/* <div className="terminal-line">
-                  {commandPath}\about&gt; <span className="cursor"></span>
-                </div> */}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="content-section"
-          ref={contactSectionRef}
-        >
-          <div className="section-content">
-            <div className="section-header">
-              <div className="terminal-line">{commandPath}&gt; cd contact</div>
-              <div className="terminal-line">
-                {commandPath}\contact&gt; type CONTACT.txt
-              </div>
-            </div>
-            <h2 className="section-title">
-              {language === "sl" ? "Kontakt" : "Contact"}
-            </h2>
-            <div className="terminal-line">
-              --------------------------------------------------
-            </div>
-            <div className="terminal-text">
-              {language === "sl"
-                ? "Vas zanima sodelovanje? Pošljite mi e-pošto!"
-                : "Interested in working together? Send me an email!"}
-            </div>
-            <div className="terminal-line">
-              EMAIL:{" "}
-              <a
-                href="mailto:info@pavsic.net"
-                className="command-link"
-              >
-                info@pavsic.net
-              </a>
-            </div>
-            <div className="terminal-line">
-              --------------------------------------------------
-            </div>
-            <div className="terminal-line">
-              {commandPath}\contact&gt; <span className="cursor"></span>
-            </div>
-          </div>
-        </section>
+        <div ref={contactSectionRef as React.RefObject<HTMLDivElement>}>
+          <Contact
+            language={language}
+            commandPath={commandPath}
+            isInternationalized={false}
+          />
+        </div>
       </div>
     </div>
   );
